@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Propuesta Técnica | KG Services</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <style>
+        :root {
+            --neon-green: #39FF14;
+            --deep-blue: #003366;
+            --pure-white: #FFFFFF;
+            --soft-gray: #F8F9FA;
+            --border-light: #E9ECEF;
+            --text-main: #1A202C;
+        }
+
+        /* Fuerza de Color Blanco */
+        html, body { 
+            background-color: var(--pure-white) !important; 
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        .container { max-width: 850px; margin: auto; padding: 0 50px; background: var(--pure-white); }
+
+        /* --- HEADER --- */
+        header {
+            padding: 50px 0 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .logo-gv { height: 125px; width: auto; object-fit: contain; }
+        .header-info { text-align: right; font-size: 1.1rem; font-weight: 600; color: var(--deep-blue); }
+
+        /* --- HERO --- */
+        .hero { padding: 40px 0 20px 0; text-align: center; }
+        .hero h1 { font-size: 2.2rem; font-weight: 900; color: var(--deep-blue); margin: 0; letter-spacing: -1px; }
+        .hero p { color: #718096; font-size: 0.95rem; margin-top: 5px; }
+        .badge { background: #E6FFFA; color: #2C7A7B; padding: 10px 26px; border-radius: 50px; font-size: 1.2rem; font-weight: 800; display: inline-block; margin-bottom: 10px; border: 1px solid #B2F5EA; }
+
+        /* --- OBJETIVO --- */
+        .section-box {
+            background: var(--soft-gray);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            margin: 20px 0;
+        }
+
+        /* --- IMAGEN IMPRESORA REDUCIDA --- */
+        .printer-container { text-align: center; padding: 20px 0; }
+        .printer-img { width: 100%; max-width: 280px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+        /* --- RUTA TÉCNICA INTERACTIVA --- */
+        .stepper { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .step {
+            background: var(--pure-white);
+            border: 2px solid var(--border-light);
+            border-radius: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .step.active { border-color: var(--deep-blue); box-shadow: 0 8px 20px rgba(0,51,102,0.08); }
+        .step-header { display: flex; align-items: center; gap: 12px; }
+        .step-num { width: 30px; height: 30px; background: var(--deep-blue); color: white; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.8rem; }
+        .step-txt { font-weight: 700; color: var(--deep-blue); font-size: 0.95rem; flex-grow: 1; }
+        .step-body { max-height: 0; overflow: hidden; transition: 0.3s ease; padding-left: 42px; color: #4A5568; font-size: 0.85rem; }
+        .step.active .step-body { max-height: 100px; margin-top: 10px; }
+
+        /* --- TABLA INVERSIÓN --- */
+        .inv-card { background: var(--soft-gray); border-radius: 24px; padding: 30px; margin: 40px 0; }
+        .inv-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #E2E8F0; }
+        .inv-row img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; margin-right: 15px; background: white; border: 1px solid #EDF2F7; }
+        .total-banner { background: var(--deep-blue); border-radius: 18px; padding: 25px; color: white; display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
+        .total-banner span { font-size: 1.6rem; font-weight: 900; color: var(--neon-green); }
+
+        /* --- OPCIONES DETALLADAS --- */
+        .options-stack { display: flex; flex-direction: column; gap: 20px; margin: 40px 0; }
+        .opt-card { border: 2px solid var(--border-light); border-radius: 20px; padding: 30px; background: white; position: relative; }
+        .opt-card h3 { color: var(--deep-blue); font-size: 1.3rem; margin: 0 0 15px 0; display: flex; align-items: center; gap: 10px; }
+        .opt-card ul { padding-left: 20px; color: #4A5568; font-size: 0.9rem; line-height: 1.6; }
+        .opt-card p.price { font-size: 1.4rem; font-weight: 900; color: var(--deep-blue); margin: 15px 0; }
+        .btn-wa { display: block; background: #25D366; color: white; text-decoration: none; padding: 18px; border-radius: 15px; text-align: center; font-weight: 800; transition: 0.3s; box-shadow: 0 5px 15px rgba(37,211,102,0.3); }
+
+        /* --- FOOTER TIPO CIFCO --- */
+        footer { background: #000000; color: white; padding: 60px 20px; text-align: center; border-radius: 40px 40px 0 0; }
+        .footer-logo-container { width: 130px; height: 130px; margin: 0 auto 20px auto; overflow: hidden; border-radius: 50%; border: 3px solid var(--neon-green); background: white; }
+        .logo-footer { width: 100%; height: 100%; object-fit: cover; }
+        .slogan { font-size: 0.9rem; font-weight: 400; color: #CBD5E0; max-width: 300px; margin: 0 auto 30px auto; line-height: 1.4; }
+        .legal { font-size: 0.75rem; color: #d1e001; border-top: 1px solid #2D3748; padding-top: 20px; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .opt-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <img src="https://github.com/Soportekgservices/propuestas/blob/main/logo%20good%20vision%20city.jpg?raw=true" alt="Good Vision City" class="logo-gv">
+        <div class="header-info">
+            COTIZACIÓN TÉCNICA<br>
+            <span style="font-weight: 500; color: #718096;">Ref: PROP-2026-0406</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="badge">Propuesta 6 de abril, 2026</div>
+        <h1>Reactivación y Gestión de <span>Identificación</span></h1>
+        <p> Gerencia: Johan Gutierrez – Gerencia Good Vision City</p>
+    </section>
+
+    <div class="section-box">
+        <p style="margin:0; font-size: 0.95rem; line-height: 1.6;">
+            <strong>1. OBJETIVO DE LA INTERVENCIÓN:</strong><br>
+            Restablecer la operatividad del sistema de carnetización. El enfoque central es la recuperación técnica de la impresora <strong>Magicard 300 Neo</strong> (activo valorado en $7.231.600), asegurando una configuración que garantice la máxima calidad de impresión y la protección del cabezal térmico tras su periodo de inactividad.
+        </p>
+    </div>
+
+    <div class="printer-container">
+        <img src="https://github.com/Soportekgservices/propuestas/blob/main/impresora.jpg?raw=true" class="printer-img" alt="Magicard 300 Neo">
+    </div>
+
+    <h3 style="text-align:center; color:var(--deep-blue); margin-top:40px;">2. ETAPA DE REACTIVACIÓN Y CALIBRACIÓN</h3>
+    
+    <div class="stepper">
+        <div class="step active" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-num">1</div>
+                <div class="step-txt">Logística y Alistamiento</div>
+            </div>
+            <div class="step-body">Retiro del equipo, gestión de adquisición de insumos con proveedores autorizados y limpieza técnica externa.</div>
+        </div>
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-num">2</div>
+                <div class="step-txt">Configuración de Software</div>
+            </div>
+            <div class="step-body">Instalación de drivers y ajuste de parámetros en la laptop o PC designada en las instalaciones de Good Vision City.</div>
+        </div>
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-num">3</div>
+                <div class="step-txt">Calibración Crítica de Color</div>
+            </div>
+            <div class="step-body">Se estima un consumo de <strong>20 tarjetas PVC</strong> en ensayos técnicos para alcanzar el estándar de alta calidad exigido.</div>
+        </div>
+    </div>
+
+    <div class="inv-card">
+        <h4 style="margin:0 0 20px 0; color: var(--deep-blue);">Inversión Inicial de Reactivación</h4>
+        <div class="inv-row">
+            <div style="display:flex; align-items:center;"><img src="https://github.com/Soportekgservices/propuestas/blob/main/cinta%20impresion.jpg?raw=true"><span>Cinta Color YMCKO (1)</span></div>
+            <strong>$325.000</strong>
+        </div>
+        <div class="inv-row">
+            <div style="display:flex; align-items:center;"><img src="https://github.com/Soportekgservices/propuestas/blob/main/kit%20de%20limpieza.jpg?raw=true"><span>Kit de Limpieza  (1)</span></div>
+            <strong>$172.000</strong>
+        </div>
+        <div class="inv-row">
+            <div style="display:flex; align-items:center;"><img src="https://github.com/Soportekgservices/propuestas/blob/main/tarjeta%20pvc.jpg?raw=true"><span>Tarjetas PVC (1x100u)</span></div>
+            <strong>$37.000</strong>
+        </div>
+        <div class="inv-row" style="border:none;">
+            <div style="display:flex; align-items:center;"><div style="width:50px; height:50px; background:white; border-radius:10px; margin-right:15px; display:grid; place-items:center; border:1px solid #EDF2F7;">🛠️</div><span>Servicio de Logística y alistamiento</span></div>
+            <strong>$250.000</strong>
+        </div>
+        <div class="total-banner">
+            <span>TOTAL ETAPA 1</span>
+            <span>$784.000</span>
+        </div>
+    </div>
+
+    <h3 style="text-align:center; color:var(--deep-blue);">3. MODELOS DE GESTIÓN OPERATIVA</h3>
+
+    <div class="options-stack">
+        <!-- Opción A -->
+        <div class="opt-card">
+            <h3><i class="fas fa-user-gear"></i> Opción A: Autonomía </h3>
+            <ul>
+                <li><strong>Entregables:</strong> Diseño de plantilla profesional para "Promotores" (2 caras), manual de usuario digital y capacitación virtual.</li>
+                <li><strong>Capacitación:</strong> Sesión remota sobre carga de insumos, limpieza programada y ejecución de archivos.</li>
+                <li><strong>Alcance:</strong> La empresa asume la edición y preparación de cada carnet para su posterior impresión.</li>
+            </ul>
+            <p class="price">$400.000 <span style="font-size:0.8rem; font-weight:400; color:#718096;">(Inversión única)</span></p>
+            <a href="https://wa.me/573008787750?text=Confirmamos%20interés%20en%20la%20OPCIÓN%20A%20(Autonomía)%20para%20Good%20Vision%20City." class="btn-wa">ELEGIR AUTONOMÍA</a>
+        </div>
+
+        <!-- Opción B -->
+        <div class="opt-card" style="border-color: var(--neon-green); background: #fafffa;">
+            <h3><i class="fas fa-cloud-check" style="color:var(--accent-green)"></i> Opción B: Gestión Asistida</h3>
+            <ul>
+                <li><strong>Gestión Integral:</strong> Nosotros elaboramos y entrega los archivos finales listos para imprimir. No requiere personal capacitado en diseño.</li>
+                <li><strong>Dinámica:</strong> La persona asignada solo coloca los insumos y da clic en "Imprimir" al recibir nuestro archivo optimizado.</li>
+                <li><strong>Garantía:</strong> Se elimina el riesgo de desperdicio de insumos por errores en edición o márgenes.</li>
+            </ul>
+            <p class="price" style="font-size:1.1rem; color:#2F855A;">Valor por establecer.</p>
+            <a href="https://wa.me/573008787750?text=Confirmamos%20interés%20en%20la%20OPCIÓN%20B%20(Gestión%20Asistida)%20para%20Good%20Vision%20City." class="btn-wa" style="background:#2D3748">ELEGIR GESTIÓN ASISTIDA</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo-container">
+            <img src="https://github.com/Soportekgservices/propuestas/blob/main/KG%20SERVICES%202.png?raw=true" class="logo-footer" alt="KG Services Logo">
+        </div>
+        <p class="slogan">Tecnología de alto impacto para empresas que evolucionan.</p>
+        <p style="font-size: 0.8rem; color: var(--neon-green); font-weight: 500; margin-bottom: 20px;">BARRANQUILLA, COLOMBIA • 2026</p>
+        <div class="legal">
+            Los valores presentados están sujetos a actualización conforme a la disponibilidad del proveedor.
+        </div>
+    </footer>
+</div>
+
+<script>
+    function toggleStep(element) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        element.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
